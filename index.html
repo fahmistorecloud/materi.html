@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title> tempatnya belajar sambil ngops
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- ========================================================== -->
+    <!--  MODAL REGISTER                                             -->
+    <!-- ========================================================== -->
+    <div id="registerModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="emoji-besar">🎉</span>
+                <h2>BUAT AKUN DULU!</h2>
+                <span class="emoji-besar">selamat datang</span>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="regUsername" placeholder="Buat username..." />
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="regEmail" placeholder="Email kamu..." />
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-key"></i> Password</label>
+                    <input type="password" id="regPassword" placeholder="Minimal 4 karakter" />
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-check"></i> Konfirmasi Password</label>
+                    <input type="password" id="regConfirmPassword" placeholder="Ketik ulang..." />
+                </div>
+                <button id="registerBtn" class="btn-primary btn-full">DAFTAR AKUN!</button>
+                <p style="text-align:center; margin-top:1rem;">
+                    Sudah punya akun? <a href="#" id="switchToLogin" style="color:#f5576c; font-weight:700;">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!--  MODAL LOGIN                                                -->
+    <!-- ========================================================== -->
+    <div id="loginModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="emoji-besar">🤪</span>
+                <h2>LOGIN YUK!</h2>
+                <span class="emoji-besar">😎</span>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="loginUsername" placeholder="Username kamu..." />
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-key"></i> Password</label>
+                    <input type="password" id="loginPassword" placeholder="Password kamu..." />
+                </div>
+                <button id="loginModalBtn" class="btn-primary btn-full">LOGIN!</button>
+                <p style="text-align:center; margin-top:1rem;">
+                    Belum punya akun? <a href="#" id="switchToRegister" style="color:#f5576c; font-weight:700;">Daftar</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!--  NAVBAR                                                    -->
+    <!-- ========================================================== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="menu-toggle" id="menuToggle">
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="menu-label">Menu</span>
+            </div>
+
+            <div class="logo">
+                <i class="fas fa-atom"></i> EduScience 🤪
+            </div>
+
+            <div class="nav-right">
+                <div class="online-indicator" id="onlineIndicator">
+                    <i class="fas fa-circle" style="color:#27ae60;"></i>
+                    <span id="onlineCount">0</span>
+                </div>
+                <button class="btn-music" id="musicToggleBtn" title="Putar/Hentikan Musik">
+                    <i class="fas fa-music"></i>
+                </button>
+                <span id="userGreeting" style="display:none; color:#ffeaa7; font-weight:600;">
+                    <i class="fas fa-user-check" style="color:#27ae60;"></i> 
+                    <span id="greetingUsername"></span>
+                </span>
+            </div>
+        </div>
+
+        <!-- ===== SIDEBAR MENU ===== -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-atom"></i> EduScience
+                </div>
+                <button class="sidebar-close" id="sidebarClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="sidebar-menu">
+                <a href="#" class="sidebar-link active" data-page="beranda">
+                    <i class="fas fa-home"></i> Beranda
+                </a>
+                <a href="#" class="sidebar-link" data-page="materi">
+                    <i class="fas fa-book"></i> Materi
+                </a>
+                <a href="#" class="sidebar-link" data-page="tesiq">
+                    <i class="fas fa-brain"></i> Tes IQ
+                </a>
+                
+                <div class="sidebar-divider"></div>
+                
+                <a href="#" class="sidebar-link" data-page="video">
+                    <i class="fas fa-video"></i> Video Pembelajaran
+                </a>
+                <a href="#" class="sidebar-link" data-page="download">
+                    <i class="fas fa-download"></i> Download Materi
+                </a>
+                <a href="#" class="sidebar-link" data-page="member">
+                    <i class="fas fa-users"></i> Member Online
+                    <span class="badge-online" id="sidebarBadge">0</span>
+                </a>
+                
+                <div class="sidebar-divider"></div>
+                
+                <a href="#" class="sidebar-link sidebar-admin" id="sidebarAdmin" style="display:none;" data-page="admin">
+                    <i class="fas fa-user-cog"></i> Admin Panel
+                </a>
+                <a href="#" class="sidebar-link sidebar-logout" id="sidebarLogout" style="display:none;" data-page="logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+                <a href="#" class="sidebar-link sidebar-login" id="sidebarLogin" data-page="login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                
+                <div class="sidebar-divider"></div>
+                
+                <a href="#" class="sidebar-link" data-page="tentang">
+                    <i class="fas fa-info-circle"></i> Tentang
+                </a>
+                <a href="#" class="sidebar-link" onclick="alert('💬 Coming Soon!')">
+                    <i class="fas fa-users"></i> Forum Diskusi
+                </a>
+            </div>
+            
+            <div class="sidebar-footer">
+                <span>EduScience Kocak v1.0</span>
+                <span>🤪</span>
+            </div>
+        </div>
+        
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    </nav>
+
+    <!-- ========================================================== -->
+    <!--  KONTEN - SETIAP HALAMAN TERPISAH                          -->
+    <!-- ========================================================== -->
+    <main class="container">
+
+        <!-- ===== HALAMAN BERANDA ===== -->
+        <div id="page-beranda" class="page-content active">
+            <section class="hero">
+                <h1>Belajar Sambil <span class="gradient-text">Ngelawak</span> 🤪</h1>
+                <p><strong>Fisika · Matematika · Astronomi · Coding</strong> — Dijamin pinter + ketawa!</p>
+                <div class="music-indicator">
+                    <i class="fas fa-headphones"></i> 
+                    <span id="musicStatus">🎵 Musik siap diputar</span>
+                </div>
+                <div class="fun-quote">
+                    <marquee behavior="alternate" scrollamount="8">🚀 Belajar itu keren! Apalagi sambil ngakak! 🤣</marquee>
+                </div>
+                <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+                    <button class="btn-page" onclick="navigateTo('materi')">
+                        <i class="fas fa-book"></i> Lihat Materi
+                    </button>
+                    <button class="btn-page" onclick="navigateTo('video')">
+                        <i class="fas fa-video"></i> Video
+                    </button>
+                    <button class="btn-page" onclick="navigateTo('tesiq')">
+                        <i class="fas fa-brain"></i> Tes IQ
+                    </button>
+                    <button class="btn-page" onclick="navigateTo('tentang')" style="background:linear-gradient(45deg,#f093fb,#f5576c);">
+                        <i class="fas fa-info-circle"></i> Tentang
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== HALAMAN MATERI ===== -->
+        <div id="page-materi" class="page-content">
+            <h2><i class="fas fa-star" style="color:#ffd93d;"></i> Materi Gokil Abis!</h2>
+            <p style="color:#3f4e66; margin-bottom:1.5rem;">Pilih materi yang mau kamu pelajari! 📚</p>
+            <div class="materi-grid">
+                <div class="card">
+                    <div class="card-icon" style="background:#ff6b6b;"><i class="fas fa-flask"></i></div>
+                    <h3>Fisika 🤯</h3>
+                    <p>Newton jatuh apel, kamu jatuh cinta? Sama-sama pake gravitasi!</p>
+                    <button class="btn-detail" onclick="alert('📚 Fisika: Mekanika, Termodinamika, Listrik, Relativitas')">Lihat Detail</button>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background:#4ecdc4;"><i class="fas fa-calculator"></i></div>
+                    <h3>Matematika 🧮</h3>
+                    <p>Hidup kayak matematika: kadang +, kadang -, jangan ÷ sedih!</p>
+                    <button class="btn-detail" onclick="alert('📚 Matematika: Aljabar, Kalkulus, Statistika, Geometri')">Lihat Detail</button>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background:#a29bfe;"><i class="fas fa-rocket"></i></div>
+                    <h3>Astronomi 🚀</h3>
+                    <p>Bintang banyak, kamu cuma satu. Tapi tetap galau! 🌟</p>
+                    <button class="btn-detail" onclick="alert('🚀 Astronomi: Tata Surya, Lubang Hitam, Galaksi, Kosmologi')">Lihat Detail</button>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="background:#ffd93d;"><i class="fas fa-code"></i></div>
+                    <h3>Coding 💻</h3>
+                    <p>Debugging kayak cari pacar: butuh sabar dan console.log()!</p>
+                    <button class="btn-detail" onclick="alert('💻 Coding: HTML, CSS, JavaScript, Python, Algoritma')">Lihat Detail</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== HALAMAN VIDEO (DENGAN LINK BARU) ===== -->
+        <div id="page-video" class="page-content">
+            <h2><i class="fas fa-video" style="color:#f5576c;"></i> Video Pembelajaran 📺</h2>
+            <p style="color:#3f4e66; margin-bottom:1.5rem;">Tonton video seru dari channel <strong>Kok Bisa?</strong> dan lainnya! 🎬</p>
+            <div class="video-grid">
+                <!-- Video 1 - Fisika (Kok Bisa) -->
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background:linear-gradient(135deg,#ff6b6b,#ee5a24);">
+                        <i class="fas fa-play"></i>
+                        <span class="video-duration">08:23</span>
+                    </div>
+                    <div class="video-info">
+                        <h4>Fisika: Ilmu yang Mengatur Segalanya</h4>
+                        <p>Apa itu fisika? Yuk kita intip ilmu di balik alam semesta, dari galaksi sampai partikel terkecil! 🌌</p>
+                        <span class="video-tag">Fisika</span>
+                        <button class="btn-video" onclick="playVideo('https://www.youtube.com/embed/4HrweW4IqJc', 'Fisika: Ilmu yang Mengatur Segalanya')">
+                            <i class="fas fa-play"></i> Tonton
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video 2 - Matematika (Kok Bisa) -->
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background:linear-gradient(135deg,#4ecdc4,#0abde3);">
+                        <i class="fas fa-play"></i>
+                        <span class="video-duration">10:15</span>
+                    </div>
+                    <div class="video-info">
+                        <h4>Matematika: Kode Rahasia Alam Semesta</h4>
+                        <p>Matematika itu bukan cuma hitungan, tapi kode rahasia yang mengatur segalanya! 🤯</p>
+                        <span class="video-tag">Matematika</span>
+                        <button class="btn-video" onclick="playVideo('https://www.youtube.com/embed/eQv10AP5BG0', 'Matematika: Kode Rahasia Alam Semesta')">
+                            <i class="fas fa-play"></i> Tonton
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video 3 - Astronomi (Sisi Terang) -->
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background:linear-gradient(135deg,#a29bfe,#6c5ce7);">
+                        <i class="fas fa-play"></i>
+                        <span class="video-duration">12:45</span>
+                    </div>
+                    <div class="video-info">
+                        <h4>Masa Lalu & Masa Depan Tata Surya</h4>
+                        <p>Bagaimana tata surya kita terbentuk? Dan bagaimana akhirnya nanti? Yuk simak! 🚀</p>
+                        <span class="video-tag">Astronomi</span>
+                        <button class="btn-video" onclick="playVideo('https://www.youtube.com/embed/9hr6w7XF_ds', 'Masa Lalu & Masa Depan Tata Surya')">
+                            <i class="fas fa-play"></i> Tonton
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video 4 - Coding (kejarcita) -->
+                <div class="video-card">
+                    <div class="video-thumbnail" style="background:linear-gradient(135deg,#ffd93d,#f0932b);">
+                        <i class="fas fa-play"></i>
+                        <span class="video-duration">06:30</span>
+                    </div>
+                    <div class="video-info">
+                        <h4>Apa Itu Koding?</h4>
+                        <p>Pengenalan seru tentang dunia koding dan kecerdasan artifisial! 💻</p>
+                        <span class="video-tag">Coding</span>
+                        <button class="btn-video" onclick="playVideo('https://www.youtube.com/embed/s_RHRTjJ4_8', 'Apa Itu Koding?')">
+                            <i class="fas fa-play"></i> Tonton
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="videoModal" class="video-modal">
+                <div class="video-modal-content">
+                    <div class="video-modal-header">
+                        <h3 id="videoTitle">Video Pembelajaran</h3>
+                        <button class="video-modal-close" onclick="closeVideo()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="video-modal-body">
+                        <iframe id="videoIframe" src="" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== HALAMAN DOWNLOAD ===== -->
+        <div id="page-download" class="page-content">
+            <h2><i class="fas fa-download" style="color:#27ae60;"></i> Download Materi 📥</h2>
+            <p style="color:#3f4e66; margin-bottom:1.5rem;">Download materi belajar dalam format PDF! Gratis! 🎉</p>
+            <div class="download-grid">
+                <div class="download-card">
+                    <div class="download-icon" style="background:#ff6b6b;"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h4>Fisika Dasar</h4>
+                        <p>Materi lengkap fisika dari nol. Cocok untuk pemula!</p>
+                        <span class="download-size">📄 PDF · 2.4 MB</span>
+                        <button class="btn-download" onclick="downloadFile('Fisika_Dasar.pdf', '📚 Materi Fisika Dasar siap di-download!')">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+                <div class="download-card">
+                    <div class="download-icon" style="background:#4ecdc4;"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h4>Matematika Dasar</h4>
+                        <p>Aljabar, kalkulus, dan statistika dalam 1 buku!</p>
+                        <span class="download-size">📄 PDF · 3.1 MB</span>
+                        <button class="btn-download" onclick="downloadFile('Matematika_Dasar.pdf', '📚 Materi Matematika Dasar siap di-download!')">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+                <div class="download-card">
+                    <div class="download-icon" style="background:#a29bfe;"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h4>Astronomi Pemula</h4>
+                        <p>Jelajahi langit malam dengan panduan ini! 🌟</p>
+                        <span class="download-size">📄 PDF · 1.8 MB</span>
+                        <button class="btn-download" onclick="downloadFile('Astronomi_Pemula.pdf', '🚀 Materi Astronomi Pemula siap di-download!')">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+                <div class="download-card">
+                    <div class="download-icon" style="background:#ffd93d;"><i class="fas fa-file-pdf"></i></div>
+                    <div class="download-info">
+                        <h4>HTML & CSS Dasar</h4>
+                        <p>Buat website pertama kamu dengan mudah!</p>
+                        <span class="download-size">📄 PDF · 2.2 MB</span>
+                        <button class="btn-download" onclick="downloadFile('HTML_CSS_Dasar.pdf', '💻 Materi HTML & CSS Dasar siap di-download!')">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- ===== HALAMAN MEMBER ONLINE ===== -->
+        <div id="page-member" class="page-content">
+            <div class="member-section">
+                <div class="member-header">
+                    <h2><i class="fas fa-users" style="color:#27ae60;"></i> Member Online 🟢</h2>
+                    <div class="member-stats">
+                        <div class="stat-box">
+                            <span class="stat-number" id="totalMember">0</span>
+                            <span class="stat-label">Total Member</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number" id="onlineMember">0</span>
+                            <span class="stat-label">Online Sekarang</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number" id="offlineMember">0</span>
+                            <span class="stat-label">Offline</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="member-controls">
+                    <button class="btn-refresh" onclick="updateMemberList()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                    <span class="last-update" id="lastUpdate">Terakhir update: -</span>
+                </div>
+                <div class="member-list-container">
+                    <div class="member-list-header">
+                        <span>Username</span>
+                        <span>Status</span>
+                        <span>Aktivitas</span>
+                    </div>
+                    <div id="memberList" class="member-list"></div>
+                </div>
+                <div class="member-activity">
+                    <h4><i class="fas fa-clock" style="color:#f39c12;"></i> Aktivitas Terbaru</h4>
+                    <div id="activityLog" class="activity-log"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== HALAMAN TENTANG ===== -->
+        <div id="page-tentang" class="page-content">
+            <div class="tentang-section">
+                <div class="tentang-header">
+                    <div class="tentang-logo-besar">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <h1>EduScience Kocak 🤪</h1>
+                    <p class="tentang-slogan">"Belajar Sambil Ngelawak — Dijamin Pinter + Ketawa!"</p>
+                </div>
+
+                <div class="tentang-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2026</div>
+                        <div class="timeline-content">
+                            <h3>🚀 Didirikan</h3>
+                            <p>EduScience didirikan pada tahun 2026 dengan misi membuat belajar menjadi lebih menyenangkan. Berawal dari kegabutan dan keisengan, kami berhasil menciptakan platform belajar yang unik dan menghibur.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2026</div>
+                        <div class="timeline-content">
+                            <h3>📚 Peluncuran Materi</h3>
+                            <p>Materi pertama yang diluncurkan adalah Fisika, Matematika, Astronomi, dan Coding. Semua materi dikemas dengan cara yang kocak dan mudah dipahami.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2026</div>
+                        <div class="timeline-content">
+                            <h3>🧠 Tes IQ Kocak</h3>
+                            <p>Fitur Tes IQ dengan 30 soal dari 4 bidang ilmu diluncurkan. Dijamin bikin kamu mikir sambil ketawa!</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2026</div>
+                        <div class="timeline-content">
+                            <h3>🎬 Video & Download</h3>
+                            <p>Kami menambahkan fitur video pembelajaran dan download materi agar belajar semakin seru dan fleksibel.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tentang-misi">
+                    <h2><i class="fas fa-bullseye"></i> Misi Kami</h2>
+                    <div class="misi-grid">
+                        <div class="misi-item">
+                            <i class="fas fa-laugh-beam" style="color:#f5576c;"></i>
+                            <h4>Belajar Sambil Ketawa</h4>
+                            <p>Kami percaya belajar itu tidak harus membosankan. Dengan gaya yang kocak, materi lebih mudah diingat!</p>
+                        </div>
+                        <div class="misi-item">
+                            <i class="fas fa-users" style="color:#27ae60;"></i>
+                            <h4>Untuk Semua</h4>
+                            <p>EduScience Kocak terbuka untuk semua orang, dari pelajar, mahasiswa, sampai yang sudah tua tapi masih suka belajar.</p>
+                        </div>
+                        <div class="misi-item">
+                            <i class="fas fa-rocket" style="color:#a29bfe;"></i>
+                            <h4>Inovatif & Kreatif</h4>
+                            <p>Kami terus berinovasi menciptakan cara belajar yang kreatif dan menyenangkan.</p>
+                        </div>
+                        <div class="misi-item">
+                            <i class="fas fa-heart" style="color:#ff6b6b;"></i>
+                            <h4>Dibuat dengan Cinta</h4>
+                            <p>Semua konten dibuat dengan penuh cinta dan perhatian untuk memberikan yang terbaik bagi pengguna.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tentang-statistik">
+                    <h2><i class="fas fa-chart-bar"></i> Statistik EduScience</h2>
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <span class="stat-angka" id="statMember">0</span>
+                            <span class="stat-label">Total Member</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-angka">4</span>
+                            <span class="stat-label">Bidang Materi</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-angka">30</span>
+                            <span class="stat-label">Soal Tes IQ</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-angka">4</span>
+                            <span class="stat-label">Video Pembelajaran</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tentang-tim">
+                    <h2><i class="fas fa-users"></i> Tim Pengembang</h2>
+                    <div class="tim-grid">
+                        <div class="tim-card">
+                            <div class="tim-avatar">🧑‍💻</div>
+                            <h4>Admin fahmi</h4>
+                            <p>Founder & Developer</p>
+                            <span class="tim-role">"Bikin web sambil ngakak"</span>
+                        </div>
+                        <div class="tim-card">
+                            <div class="tim-avatar">agung</div>
+                            <h4>  Materi</h4>
+                            <p>Content Creator</p>
+                            <span class="tim-role">"Bikin materi jadi lucu"</span>
+                        </div>
+                        <div class="tim-card">
+                            <div class="tim-avatar">🧪</div>
+                            <h4>Bang Fisika</h4>
+                            <p>Fisika Specialist</p>
+                            <span class="tim-role">"Gravitasi itu cinta"</span>
+                        </div>
+                        <div class="tim-card">
+                            <div class="tim-avatar">💻</div>
+                            <h4>Coder Gokil</h4>
+                            <p>Web Developer</p>
+                            <span class="tim-role">"Debugging = mencari pacar"</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tentang-footer">
+                    <p>© 2026 - Sekarang <strong>EduScience Kocak</strong> 🤪</p>
+                    <p style="font-size:0.85rem; color:#7f8c8d; margin-top:0.3rem;">
+                        <i class="fas fa-heart" style="color:#ff6b6b;"></i> 
+                        Dibuat dengan ketawa, kopi, dan sedikit kegilaan
+                    </p>
+                    <div class="tentang-sosmed">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== HALAMAN TES IQ ===== -->
+        <div id="page-tesiq" class="page-content">
+            <div class="tes-section">
+                <div class="tes-header">
+                    <h2><i class="fas fa-brain" style="color:#f5576c;"></i> Tes IQ Kocak! 🧠</h2>
+                    <p>30 soal campuran <strong>Coding, Fisika, Matematika, & Astronomi</strong>. Nilai muncul otomatis!</p>
+                    <div class="tes-stats">
+                        <span class="stat-item"><i class="fas fa-code" style="color:#f39c12;"></i> Coding: 8 soal</span>
+                        <span class="stat-item"><i class="fas fa-flask" style="color:#ff6b6b;"></i> Fisika: 8 soal</span>
+                        <span class="stat-item"><i class="fas fa-calculator" style="color:#4ecdc4;"></i> Matematika: 7 soal</span>
+                        <span class="stat-item"><i class="fas fa-rocket" style="color:#a29bfe;"></i> Astronomi: 7 soal</span>
+                    </div>
+                </div>
+                <div id="tesContainer"></div>
+                <div class="tes-actions">
+                    <button id="submitTesBtn" class="btn-submit"><i class="fas fa-paper-plane"></i> Kirim Jawaban!</button>
+                    <button id="resetTesBtn" class="btn-reset"><i class="fas fa-redo"></i> Ulangi Tes</button>
+                </div>
+                <div id="hasilTes" style="display:none;">
+                    <div class="hasil-card">
+                        <div class="hasil-icon" id="hasilIcon">🎉</div>
+                        <h3 id="hasilTitle">Hasil Tes IQ Kamu!</h3>
+                        <div class="nilai-besar" id="nilaiAkhir">0%</div>
+                        <p id="hasilMessage">Selamat!</p>
+                        <div class="hasil-detail">
+                            <span id="benarCount">0</span> Benar dari <span id="totalSoal">30</span> Soal
+                        </div>
+                        <div class="hasil-kategori" id="hasilKategori">⭐ Genius</div>
+                        <div class="hasil-rincian">
+                            <span id="rincianFisika">Fisika: 0/8</span>
+                            <span id="rincianMatematika">Matematika: 0/7</span>
+                            <span id="rincianAstronomi">Astronomi: 0/7</span>
+                            <span id="rincianCoding">Coding: 0/8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== HALAMAN ADMIN PANEL ===== -->
+        <div id="page-admin" class="page-content" style="display:none;">
+            <div class="admin-panel">
+                <!-- Header Admin -->
+                <div class="admin-header">
+                    <h2><i class="fas fa-shield-alt" style="color:#f5576c;"></i> Dashboard Admin</h2>
+                    <div class="admin-user-info">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="adminUsername">Admin</span>
+                        <span class="admin-badge">👑</span>
+                    </div>
+                </div>
+
+                <!-- Admin Stats -->
+                <div class="admin-stats">
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon" style="background:#27ae60;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="admin-stat-info">
+                            <span class="admin-stat-number" id="adminTotalMember">0</span>
+                            <span class="admin-stat-label">Total Member</span>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon" style="background:#3498db;">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="admin-stat-info">
+                            <span class="admin-stat-number" id="adminOnlineMember">0</span>
+
+<span class="admin-stat-label">Online Sekarang</span>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon" style="background:#f39c12;">
+                            <i class="fas fa-user-times"></i>
+                        </div>
+                        <div class="admin-stat-info">
+                            <span class="admin-stat-number" id="adminOfflineMember">0</span>
+                            <span class="admin-stat-label">Offline</span>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon" style="background:#f5576c;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="admin-stat-info">
+                            <span class="admin-stat-number" id="adminActivityCount">0</span>
+                            <span class="admin-stat-label">Total Aktivitas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Tabs -->
+                <div class="admin-tabs">
+                    <button class="admin-tab active" data-tab="members">
+                        <i class="fas fa-users"></i> Member
+                    </button>
+                    <button class="admin-tab" data-tab="activity">
+                        <i class="fas fa-list"></i> Aktivitas
+                    </button>
+                    <button class="admin-tab" data-tab="settings">
+                        <i class="fas fa-cog"></i> Pengaturan
+                    </button>
+                    <button class="admin-tab" data-tab="tawk">
+                        <i class="fas fa-comment-dots"></i> Tawk.to
+                    </button>
+                </div>
+
+                <!-- Tab Content: Members -->
+                <div class="admin-tab-content" id="adminTabMembers">
+                    <div class="admin-table-wrapper">
+                        <div class="admin-table-header">
+                            <span>Username</span>
+                            <span>Email</span>
+                            <span>Status</span>
+                            <span>Aksi</span>
+                        </div>
+                        <div id="adminMemberList" class="admin-table-body">
+                            <!-- Daftar member akan diisi oleh JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Activity -->
+                <div class="admin-tab-content" id="adminTabActivity" style="display:none;">
+                    <div class="admin-activity-list" id="adminActivityList">
+                        <!-- Aktivitas akan diisi oleh JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Tab Content: Settings -->
+                <div class="admin-tab-content" id="adminTabSettings" style="display:none;">
+                    <div class="admin-settings">
+                        <div class="setting-group">
+                            <h4><i class="fas fa-user-shield"></i> Keamanan</h4>
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" id="settingTwoFactor" /> 
+                                    Two-Factor Authentication
+                                </label>
+                                <small>🔒 Aktifkan keamanan tambahan</small>
+                            </div>
+                            <div class="setting-item">
+                                <button class="btn-setting" onclick="alert('🔑 Password berhasil diubah!')">
+                                    <i class="fas fa-key"></i> Ubah Password
+                                </button>
+                            </div>
+                        </div>
+                        <div class="setting-group">
+                            <h4><i class="fas fa-bell"></i> Notifikasi</h4>
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" checked /> 
+                                    Notifikasi Member Login
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" checked /> 
+                                    Notifikasi Member Logout
+                                </label>
+                            </div>
+                        </div>
+                        <div class="setting-group">
+                            <h4><i class="fas fa-database"></i> Data</h4>
+                            <div class="setting-item">
+                                <button class="btn-setting" onclick="if(confirm('Yakin hapus semua data?')){localStorage.clear();alert('🗑️ Semua data dihapus!');location.reload();}">
+                                    <i class="fas fa-trash" style="color:#e74c3c;"></i> Hapus Semua Data
+                                </button>
+                            </div>
+                            <div class="setting-item">
+                                <button class="btn-setting" onclick="alert('📤 Data berhasil diekspor!')">
+                                    <i class="fas fa-download"></i> Ekspor Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Tawk.to -->
+                <div class="admin-tab-content" id="adminTabTawk" style="display:none;">
+                    <div class="admin-tawk">
+                        <div style="background:#f0f4ff; padding:2rem; text-align:center; border-radius:20px; border:2px dashed #f093fb;">
+                            <i class="fas fa-comment-dots" style="font-size:3rem; color:#f5576c;"></i>
+                            <p style="font-weight:600; margin:0.5rem 0;">💬 Tawk.to Live Chat</p>
+                            <p style="color:#666;">Widget di pojok kanan bawah 👇</p>
+                            <span style="display:inline-block; margin-top:0.5rem; background:#27ae60; color:white; padding:0.2rem 1.5rem; border-radius:40px; font-size:0.8rem;">
+                                <i class="fas fa-check"></i> Aktif
+                            </span>
+                        </div>
+                        <button id="resetTawkBtn" class="btn-reset" style="margin-top:1rem;">
+                            <i class="fas fa-sync-alt"></i> Reset Tawk.to
+                        </button>
+                        <div style="margin-top:1rem; padding:1rem; background:#f8f9fa; border-radius:12px;">
+                            <p><i class="fas fa-info-circle" style="color:#f5576c;"></i> <strong>Status:</strong> Tawk.to berjalan di pojok kanan bawah</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Footer -->
+                <div class="admin-footer">
+                    <p><i class="fas fa-crown" style="color:#f0c27f;"></i> Panel Admin EduScience Kocak v1.0</p>
+                    <button id="adminLogoutBtn" class="btn-logout-admin">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                    </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>EduScience Kocak — 2026 · Dibuat sambil <i class="fas fa-coffee"></i> + <i class="fas fa-laugh-beam"></i></p>
+        </footer>
+
+    </main>
+
+    <!-- ==================== AUDIO ==================== -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ========================================================== -->
+    <!--  TAWK.TO                                                    -->
+    <!-- ========================================================== -->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {};
+        var Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script");
+            var s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/67e8b1c6d2e7f3a1e7b9c5d4/1i9n8m7l6k';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script src="script.js"></script>
+</body>
